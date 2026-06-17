@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#05090f;}
+  body{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","BIZ UDGothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;}
+  input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent,#27e0ff) var(--fill,50%),rgba(255,255,255,.14) var(--fill,50%));box-shadow:0 0 8px var(--glow1,rgba(39,224,255,.18)) inset;}
+  input[type=range]::-moz-range-track{height:8px;border-radius:999px;background:rgba(255,255,255,.14);}
+  input[type=range]::-moz-range-progress{height:8px;border-radius:999px;background:var(--accent,#27e0ff);}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;background:var(--accent,#27e0ff);border:3px solid #0a121c;box-shadow:0 0 14px var(--accent,#27e0ff),0 4px 10px rgba(0,0,0,.5);cursor:pointer;}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent,#27e0ff);border:3px solid #0a121c;box-shadow:0 0 14px var(--accent,#27e0ff);cursor:pointer;}
+  @keyframes db-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes db-glow{0%,100%{opacity:.45}50%{opacity:1}}
+  @keyframes db-dash{to{stroke-dashoffset:-260}}
+  @keyframes db-blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+  @keyframes db-rise{0%{transform:translateY(20px) scale(.6);opacity:0}12%{opacity:.5}100%{transform:translateY(-150px) scale(1);opacity:0}}
+  @keyframes db-shine{to{background-position:220% center}}
+  @keyframes db-wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+  @keyframes db-spin{to{transform:rotate(360deg)}}
+  @keyframes db-flick{0%,100%{opacity:.9}48%{opacity:.7}50%{opacity:1}52%{opacity:.75}}
+  @keyframes db-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;}}
+</style>
+</helmet>
+
+<div id="denkiRoot" style="--flow:#27e0ff; --flowLite:#a6f3ff; --accent:#34e3ff; --accent-soft:rgba(39,224,255,.16); --glow1:rgba(39,224,255,.18); --glow2:rgba(86,132,255,.12); --ink:#eaf6ff; --sub:#88aac2; --panel:rgba(255,255,255,.045); --panel-bd:rgba(120,200,255,.16); --good:#36e6a4; --bad:#ff6378; --zunda:#a6e052; min-height:100vh; color:var(--ink); padding:0 16px 150px; transition:--accent .5s; background:radial-gradient(1100px 620px at 18% -8%, var(--glow1), transparent 60%), radial-gradient(1000px 720px at 105% 6%, var(--glow2), transparent 55%), linear-gradient(180deg,#0a141f 0%,#070d15 55%,#05090f 100%); background-attachment:fixed;">
+
+  <div style="max-width:980px;margin:0 auto;">
+
+    <!-- ===== HERO ===== -->
+    <header style="position:relative;text-align:center;padding:46px 10px 26px;overflow:hidden;">
+      <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;z-index:0;">
+        <span style="position:absolute;left:12%;bottom:0;width:10px;height:10px;border-radius:50%;background:var(--flow);opacity:.0;animation:db-rise 6s linear infinite;"></span>
+        <span style="position:absolute;left:28%;bottom:0;width:6px;height:6px;border-radius:50%;background:var(--flowLite);opacity:.0;animation:db-rise 7.5s linear .8s infinite;"></span>
+        <span style="position:absolute;left:62%;bottom:0;width:13px;height:13px;border-radius:50%;background:var(--flow);opacity:.0;animation:db-rise 5.5s linear 1.6s infinite;"></span>
+        <span style="position:absolute;left:80%;bottom:0;width:8px;height:8px;border-radius:50%;background:var(--flowLite);opacity:.0;animation:db-rise 8s linear .4s infinite;"></span>
+        <span style="position:absolute;left:45%;bottom:0;width:5px;height:5px;border-radius:50%;background:var(--flow);opacity:.0;animation:db-rise 6.8s linear 2.2s infinite;"></span>
+      </div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.34em;color:var(--accent);text-shadow:0 0 16px var(--glow1);">ELECTRICITY × WATER  /  SCIENCE LAB</div>
+        <div style="font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.16em;margin-top:8px;">技術・家庭科〔技術分野〕 エネルギー変換の技術</div>
+        <h1 style="font-size:clamp(30px,6.4vw,58px);font-weight:900;line-height:1.12;margin:12px 0 10px;letter-spacing:.01em;">
+          <span style="display:inline-block;animation:db-float 3.2s ease-in-out infinite;">⚡</span>
+          <span style="background:linear-gradient(100deg,#a6f3ff,#27e0ff 35%,#7aa8ff 70%,#a6f3ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px var(--glow1);background-size:220% auto;animation:db-shine 6s linear infinite;">電気のきほん</span>
+          <span style="display:inline-block;animation:db-float 3.2s ease-in-out .6s infinite;">💧</span>
+        </h1>
+        <p style="font-size:clamp(14px,2.4vw,18px);color:var(--sub);font-weight:700;">目に見えない「電気」を、<span style="color:var(--flowLite);">水の流れ</span>にたとえて体感しよう。スライダーを動かすと世界が動き出すのだ!</p>
+        <button id="opStart" style="margin-top:22px;font-family:inherit;font-weight:900;font-size:16px;color:#06121a;cursor:pointer;border:none;border-radius:999px;padding:14px 30px;background:linear-gradient(135deg,var(--flowLite),var(--flow));box-shadow:0 0 30px var(--glow1),0 10px 26px rgba(0,0,0,.45);letter-spacing:.04em;transition:transform .15s;" style-hover="transform:translateY(-2px) scale(1.03);">🍡 ずんだもんと実験をはじめる ▶</button>
+      </div>
+    </header>
+
+    <!-- ===== MODE TOGGLE ===== -->
+    <div style="display:flex;justify-content:center;margin:8px 0 26px;">
+      <div role="group" aria-label="表示モード切替" style="position:relative;display:flex;background:rgba(255,255,255,.05);border:1px solid var(--panel-bd);border-radius:999px;padding:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(10px);">
+        <button id="btnWater" style="position:relative;z-index:1;border:none;background:linear-gradient(135deg,#1fd4f0,#1aa9d6);color:#06121a;font-family:inherit;font-weight:900;font-size:15px;padding:11px 26px;border-radius:999px;cursor:pointer;box-shadow:0 0 22px var(--glow1);transition:.25s;">💧 水のせかい</button>
+        <button id="btnElec" style="position:relative;z-index:1;border:none;background:transparent;color:var(--sub);font-family:inherit;font-weight:900;font-size:15px;padding:11px 26px;border-radius:999px;cursor:pointer;transition:.25s;">⚡ 電気のせかい</button>
+      </div>
+    </div>
+
+    <!-- ===== STAGE 01 — SIMULATOR ===== -->
+    <section style="position:relative;background:var(--panel);border:1px solid var(--panel-bd);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(12px);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 12px;border-radius:999px;">STAGE 01</span>
+        <h2 id="simTitle" style="font-size:clamp(18px,2.6vw,24px);font-weight:900;">水路シミュレーター</h2>
+      </div>
+      <p style="color:var(--sub);font-weight:700;font-size:14px;margin-bottom:6px;">スライダーで <b style="color:var(--flowLite);">電圧</b> と <b style="color:var(--flowLite);">抵抗</b> を変えて、流れる量(電流)の変化を見よう。</p>
+
+      <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" aria-label="回路シミュレーター" style="width:100%;height:auto;display:block;overflow:visible;">
+        <defs>
+          <filter id="simGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6ac63"/><stop offset="1" stop-color="#7c4f1e"/></linearGradient>
+          <radialGradient id="bulbGrad" cx="50%" cy="42%" r="60%"><stop offset="0" stop-color="#fff7d6"/><stop offset="1" stop-color="#f4c23a"/></radialGradient>
+        </defs>
+
+        <!-- pipe -->
+        <path id="loopPath" d="M 170 100 H 550 Q 600 100 600 150 V 250 Q 600 300 550 300 H 170 Q 120 300 120 250 V 150 Q 120 100 170 100 Z" fill="none" stroke="rgba(180,210,230,.10)" stroke-width="34" stroke-linejoin="round"/>
+        <path d="M 170 100 H 550 Q 600 100 600 150 V 250 Q 600 300 550 300 H 170 Q 120 300 120 250 V 150 Q 120 100 170 100 Z" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="22" stroke-linejoin="round"/>
+        <path id="flowGlow" d="M 170 100 H 550 Q 600 100 600 150 V 250 Q 600 300 550 300 H 170 Q 120 300 120 250 V 150 Q 120 100 170 100 Z" fill="none" stroke="var(--flow)" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="2 26" opacity=".55" style="filter:drop-shadow(0 0 6px var(--flow));animation:db-dash 2.4s linear infinite;"/>
+
+        <g id="particles" filter="url(#simGlow)"></g>
+
+        <!-- source: pump (water) -->
+        <g id="srcWater">
+          <rect x="80" y="152" width="80" height="96" rx="16" fill="#13344a" stroke="#1f5d7e" stroke-width="2"/>
+          <rect x="90" y="162" width="60" height="76" rx="10" fill="rgba(255,255,255,.06)"/>
+          <rect id="vGauge" x="90" y="200" width="60" height="38" rx="9" fill="var(--flow)" style="filter:drop-shadow(0 0 6px var(--flow));"/>
+          <text x="120" y="142" text-anchor="middle" font-size="15" font-weight="900" fill="var(--ink)">ポンプ</text>
+          <text x="120" y="270" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">(=電池)</text>
+        </g>
+        <!-- source: battery (electric) -->
+        <g id="srcElec" style="display:none">
+          <rect x="84" y="156" width="72" height="88" rx="12" fill="#1a1a22" stroke="#3a3a48" stroke-width="2"/>
+          <rect x="104" y="146" width="32" height="12" rx="4" fill="#3a3a48"/>
+          <rect id="vGaugeE" x="92" y="200" width="56" height="38" rx="8" fill="var(--flow)" style="filter:drop-shadow(0 0 6px var(--flow));"/>
+          <text x="120" y="184" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">＋</text>
+          <text x="120" y="272" text-anchor="middle" font-size="14" font-weight="900" fill="var(--ink)">電池</text>
+        </g>
+
+        <!-- load: water wheel -->
+        <g id="loadWater">
+          <g id="wheel" transform="translate(600,200)">
+            <circle r="48" fill="none" stroke="url(#wood)" stroke-width="9"/>
+            <circle r="33" fill="none" stroke="url(#wood)" stroke-width="4" opacity=".8"/>
+            <g stroke="url(#wood)" stroke-width="6" stroke-linecap="round">
+              <line x1="-44" y1="0" x2="44" y2="0"/><line x1="0" y1="-44" x2="0" y2="44"/>
+              <line x1="-31" y1="-31" x2="31" y2="31"/><line x1="-31" y1="31" x2="31" y2="-31"/>
+            </g>
+            <g fill="url(#wood)" stroke="#5e3a14" stroke-width="1.5">
+              <g transform="rotate(0)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(45)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(90)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(135)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(180)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(225)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(270)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+              <g transform="rotate(315)"><rect x="-8" y="-54" width="16" height="16" rx="3"/></g>
+            </g>
+            <circle r="9" fill="#6f4a1c" stroke="#caa15a" stroke-width="2"/>
+          </g>
+          <text x="600" y="132" text-anchor="middle" font-size="15" font-weight="900" fill="var(--ink)">水車</text>
+          <text x="600" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">(=抵抗・負荷)</text>
+        </g>
+        <!-- load: bulb (electric) -->
+        <g id="loadElec" style="display:none">
+          <circle id="glow" cx="600" cy="198" r="58" fill="#ffd64d" opacity="0.3" style="filter:blur(6px);"/>
+          <path d="M 583 222 Q 600 250 617 222 L 614 232 Q 600 210 586 232 Z" fill="#cfd6dd"/>
+          <rect x="586" y="230" width="28" height="16" rx="3" fill="#9aa0a6"/>
+          <rect x="588" y="244" width="24" height="8" rx="2" fill="#7c8186"/>
+          <circle cx="600" cy="198" r="36" fill="url(#bulbGrad)" stroke="#caa53a" stroke-width="3"/>
+          <path id="filament" d="M 590 206 q 5 -16 10 0 q 5 16 10 0" fill="none" stroke="#ff9c2a" stroke-width="3" style="filter:drop-shadow(0 0 4px #ffce4a);"/>
+          <text x="600" y="132" text-anchor="middle" font-size="15" font-weight="900" fill="var(--ink)">電球</text>
+          <text x="600" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="var(--sub)">(=抵抗・負荷)</text>
+        </g>
+
+        <text id="flowLabel" x="360" y="76" text-anchor="middle" font-size="14" font-weight="900" fill="var(--accent)">→ 水の流れ(=電流)</text>
+        <text id="flowAmount" x="360" y="344" text-anchor="middle" font-size="15" font-weight="900" fill="var(--flowLite)"></text>
+      </svg>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:14px;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
+          <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;">
+            <span id="vName">⛰️ 落差(電圧)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="vVal">6</span> <small style="color:var(--sub);font-weight:700;">V</small></span>
+          </label>
+          <input type="range" id="vSlider" min="1" max="12" step="1" value="6" aria-label="電圧" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
+          <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;">
+            <span id="rName">🌀 水車の重さ(抵抗)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="rVal">3</span> <small style="color:var(--sub);font-weight:700;">Ω</small></span>
+          </label>
+          <input type="range" id="rSlider" min="1" max="12" step="1" value="3" aria-label="抵抗" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+        </div>
+      </div>
+
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+        <span style="font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(16px,3vw,22px);background:linear-gradient(135deg,#101e2c,#0a1622);border:1px solid var(--panel-bd);color:#fff;border-radius:14px;padding:10px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);">I = V ÷ R</span>
+        <span style="font-weight:900;font-size:clamp(15px,2.6vw,20px);color:var(--sub);">= <span id="calc" style="color:var(--ink);">6 ÷ 3</span> =</span>
+        <span style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(24px,5vw,34px);color:var(--accent);text-shadow:0 0 22px var(--glow1);"><span id="iVal">2.0</span> A</span>
+        <span style="width:100%;text-align:center;font-size:13px;color:var(--sub);font-weight:700;">💡 電力 P = V × I = <b id="pVal" style="color:var(--flowLite);">12</b> W</span>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 02 — DROP ===== -->
+    <section style="position:relative;background:var(--panel);border:1px solid var(--panel-bd);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(12px);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 12px;border-radius:999px;">STAGE 02</span>
+        <h2 style="font-size:clamp(17px,2.5vw,23px);font-weight:900;">高いところの水は勢いがいい!<span style="color:var(--flowLite);">(=電圧)</span></h2>
+      </div>
+      <svg id="dropSvg" viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" aria-label="落差の実験" style="width:100%;height:auto;display:block;overflow:visible;">
+        <defs><filter id="dGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <rect x="0" y="330" width="720" height="10" rx="5" fill="rgba(180,210,230,.18)"/>
+        <rect id="dTower" x="330" y="190" width="110" height="140" fill="rgba(255,255,255,.05)" stroke="var(--panel-bd)" stroke-width="2"/>
+        <g id="dTank">
+          <rect x="308" y="0" width="174" height="62" rx="12" fill="#13344a" stroke="#1f5d7e" stroke-width="2"/>
+          <rect x="316" y="8" width="158" height="46" rx="8" fill="rgba(255,255,255,.05)"/>
+          <rect x="316" y="22" width="158" height="32" rx="8" fill="var(--flow)" opacity=".9" style="filter:drop-shadow(0 0 6px var(--flow));"/>
+          <rect x="450" y="42" width="30" height="14" rx="4" fill="#1f5d7e"/>
+        </g>
+        <line id="dArrow" x1="300" y1="60" x2="300" y2="330" stroke="var(--accent)" stroke-width="3" stroke-dasharray="7 6"/>
+        <path id="dArrowTop" d="M 300 60 l -7 12 h 14 z" fill="var(--accent)"/>
+        <path id="dArrowBtm" d="M 300 330 l -7 -12 h 14 z" fill="var(--accent)"/>
+        <text id="dArrowLabel" x="284" y="200" text-anchor="end" font-size="16" font-weight="900" fill="var(--accent)">落差 = 電圧!</text>
+        <text id="dArrowVal" x="284" y="224" text-anchor="end" font-size="14" font-weight="700" fill="var(--sub)"></text>
+        <g id="dWheelG" transform="translate(465,292)">
+          <g id="dWheel">
+            <circle r="38" fill="none" stroke="url(#wood)" stroke-width="8"/>
+            <g stroke="url(#wood)" stroke-width="5" stroke-linecap="round">
+              <line x1="-34" y1="0" x2="34" y2="0"/><line x1="0" y1="-34" x2="0" y2="34"/>
+              <line x1="-24" y1="-24" x2="24" y2="24"/><line x1="-24" y1="24" x2="24" y2="-24"/>
+            </g>
+            <g fill="url(#wood)" stroke="#5e3a14" stroke-width="1.2">
+              <g transform="rotate(0)"><rect x="-7" y="-44" width="14" height="13" rx="2"/></g>
+              <g transform="rotate(60)"><rect x="-7" y="-44" width="14" height="13" rx="2"/></g>
+              <g transform="rotate(120)"><rect x="-7" y="-44" width="14" height="13" rx="2"/></g>
+              <g transform="rotate(180)"><rect x="-7" y="-44" width="14" height="13" rx="2"/></g>
+              <g transform="rotate(240)"><rect x="-7" y="-44" width="14" height="13" rx="2"/></g>
+              <g transform="rotate(300)"><rect x="-7" y="-44" width="14" height="13" rx="2"/></g>
+            </g>
+            <circle r="6" fill="#6f4a1c" stroke="#caa15a" stroke-width="1.5"/>
+          </g>
+        </g>
+        <text x="540" y="300" font-size="13" font-weight="900" fill="var(--ink)">水車の回る速さに注目!</text>
+        <g id="dDrops" filter="url(#dGlow)"></g>
+        <g id="dSplash"></g>
+      </svg>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:12px;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
+          <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;"><span>⛰️ タンクの高さ(落差)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="dHVal">5</span> <small style="color:var(--sub);font-weight:700;">m</small></span></label>
+          <input type="range" id="dSlider" min="1" max="10" step="1" value="5" aria-label="タンクの高さ" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:13px;font-weight:900;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><span>💨 水の勢い <small style="color:var(--sub);font-weight:700;">=電圧のイメージ</small></span><span id="dPowerTxt" style="color:var(--accent);"></span></div>
+          <div style="height:16px;background:rgba(0,0,0,.3);border-radius:999px;overflow:hidden;border:1px solid var(--panel-bd);"><div id="dPowerBar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--flow),var(--flowLite));box-shadow:0 0 12px var(--flow);transition:width .15s;"></div></div>
+        </div>
+      </div>
+      <div id="dNote" style="margin-top:12px;background:rgba(166,224,82,.10);border:1px solid rgba(166,224,82,.4);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:700;color:#dff5c2;">タンクを高くしてみるのだ!高いところから落ちる水ほど、ドンッ!と勢いが強くなるのだ。これが「電圧が高い」ということなのだ!</div>
+    </section>
+
+    <!-- ===== STAGE 03 — HOSE ===== -->
+    <section style="position:relative;background:var(--panel);border:1px solid var(--panel-bd);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(12px);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 12px;border-radius:999px;">STAGE 03</span>
+        <h2 style="font-size:clamp(17px,2.5vw,23px);font-weight:900;">ホースの先をつまむと…?<span style="color:var(--flowLite);">(=抵抗と電圧)</span></h2>
+      </div>
+      <svg id="hoseSvg" viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" aria-label="ホースの実験" style="width:100%;height:auto;display:block;overflow:visible;">
+        <defs><filter id="hGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <rect x="0" y="330" width="720" height="10" rx="5" fill="rgba(180,210,230,.18)"/>
+        <g font-size="12" font-weight="700" fill="var(--sub)" text-anchor="middle">
+          <line x1="340" y1="324" x2="340" y2="338" stroke="var(--sub)" stroke-width="2"/><text x="340" y="356">1m</text>
+          <line x1="430" y1="324" x2="430" y2="338" stroke="var(--sub)" stroke-width="2"/><text x="430" y="356">2m</text>
+          <line x1="520" y1="324" x2="520" y2="338" stroke="var(--sub)" stroke-width="2"/><text x="520" y="356">3m</text>
+          <line x1="610" y1="324" x2="610" y2="338" stroke="var(--sub)" stroke-width="2"/><text x="610" y="356">4m</text>
+          <line x1="700" y1="324" x2="700" y2="338" stroke="var(--sub)" stroke-width="2"/><text x="700" y="356">5m</text>
+        </g>
+        <rect x="20" y="140" width="34" height="80" rx="8" fill="#6c7177"/>
+        <rect x="40" y="186" width="210" height="30" rx="14" fill="#2f7a45"/>
+        <rect x="40" y="192" width="210" height="8" rx="4" fill="#49a766"/>
+        <text x="130" y="174" font-size="14" font-weight="900" fill="var(--ink)">ホース</text>
+        <ellipse id="fingerTop" cx="262" cy="150" rx="17" ry="28" fill="#f6c9a0" stroke="#d89a60" stroke-width="3"/>
+        <ellipse id="fingerBtm" cx="262" cy="252" rx="17" ry="28" fill="#f6c9a0" stroke="#d89a60" stroke-width="3"/>
+        <text x="262" y="116" text-anchor="middle" font-size="14" font-weight="900" fill="var(--ink)">🤏 ここをつまむ!</text>
+        <rect id="nozzleTop" x="248" y="186" width="22" height="6" fill="#236138"/>
+        <rect id="nozzleBtm" x="248" y="210" width="22" height="6" fill="#236138"/>
+        <g id="hDrops" filter="url(#hGlow)"></g>
+        <g id="hSplash"></g>
+      </svg>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:12px;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
+          <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;"><span>🤏 つまみ具合(=抵抗)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="hPVal">0</span></span></label>
+          <input type="range" id="hSlider" min="0" max="10" step="1" value="0" aria-label="つまみ具合" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
+          <div>
+            <div style="font-size:12px;font-weight:900;margin-bottom:5px;">💨 水の勢い <small style="color:var(--sub);font-weight:700;">=電圧</small></div>
+            <div style="height:13px;background:rgba(0,0,0,.3);border-radius:999px;overflow:hidden;border:1px solid var(--panel-bd);"><div id="hIkioiBar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,#ff9e1f,#ffce4a);box-shadow:0 0 10px #ffae2f;transition:width .15s;"></div></div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:900;margin-bottom:5px;">💧 流れる水の量 <small style="color:var(--sub);font-weight:700;">=電流</small></div>
+            <div style="height:13px;background:rgba(0,0,0,.3);border-radius:999px;overflow:hidden;border:1px solid var(--panel-bd);"><div id="hRyouBar" style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--flow),var(--flowLite));box-shadow:0 0 10px var(--flow);transition:width .15s;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div id="hNote" style="margin-top:12px;background:rgba(166,224,82,.10);border:1px solid rgba(166,224,82,.4);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:700;color:#dff5c2;">スライダーでホースの先をつまんでみるのだ!水はどこまで飛ぶかな?</div>
+      <p id="teachNote" style="margin-top:10px;font-size:11px;color:var(--sub);font-weight:700;">※先生むけメモ:つまんだ場所(=抵抗)では水の勢い(=電圧)が強くなる一方、流れる量(=電流)は減ります。「抵抗が上がると電圧は上がるが、電流は下がる」(V=I×R)のイメージづくりに。</p>
+    </section>
+
+    <!-- ===== STAGE 04 — GLOSSARY ===== -->
+    <section style="position:relative;background:var(--panel);border:1px solid var(--panel-bd);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(12px);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 12px;border-radius:999px;">STAGE 04</span>
+        <h2 style="font-size:clamp(17px,2.5vw,23px);font-weight:900;">電気のことば<span style="color:var(--sub);font-size:13px;font-weight:700;margin-left:8px;">タップで声がきけるのだ🔊</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+        <button class="termCard" data-voice="word_denryu" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--panel-bd);background:rgba(255,255,255,.04);border-radius:16px;padding:16px;transition:.2s;color:var(--ink);" style-hover="border-color:var(--accent);transform:translateY(-3px);">
+          <b style="display:block;font-size:17px;">電流 <span style="font-size:12px;color:var(--accent);font-weight:900;">A(アンペア)</span></b>
+          <p style="font-size:13px;margin-top:6px;color:var(--sub);font-weight:700;">電気の流れる量</p>
+          <span style="display:inline-block;font-size:12px;background:var(--accent-soft);color:var(--flowLite);border-radius:8px;padding:4px 8px;margin-top:8px;font-weight:700;">💧 水の流れる量</span>
+        </button>
+        <button class="termCard" data-voice="word_denatsu" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--panel-bd);background:rgba(255,255,255,.04);border-radius:16px;padding:16px;transition:.2s;color:var(--ink);" style-hover="border-color:var(--accent);transform:translateY(-3px);">
+          <b style="display:block;font-size:17px;">電圧 <span style="font-size:12px;color:var(--accent);font-weight:900;">V(ボルト)</span></b>
+          <p style="font-size:13px;margin-top:6px;color:var(--sub);font-weight:700;">電気を押し出す力(電位差)</p>
+          <span style="display:inline-block;font-size:12px;background:var(--accent-soft);color:var(--flowLite);border-radius:8px;padding:4px 8px;margin-top:8px;font-weight:700;">💧 水の高さ・水圧</span>
+        </button>
+        <button class="termCard" data-voice="word_teikou" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--panel-bd);background:rgba(255,255,255,.04);border-radius:16px;padding:16px;transition:.2s;color:var(--ink);" style-hover="border-color:var(--accent);transform:translateY(-3px);">
+          <b style="display:block;font-size:17px;">抵抗 <span style="font-size:12px;color:var(--accent);font-weight:900;">Ω(オーム)</span></b>
+          <p style="font-size:13px;margin-top:6px;color:var(--sub);font-weight:700;">電気の流れにくさ</p>
+          <span style="display:inline-block;font-size:12px;background:var(--accent-soft);color:var(--flowLite);border-radius:8px;padding:4px 8px;margin-top:8px;font-weight:700;">💧 細い管や水車</span>
+        </button>
+        <button class="termCard" data-voice="word_denryoku" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--panel-bd);background:rgba(255,255,255,.04);border-radius:16px;padding:16px;transition:.2s;color:var(--ink);" style-hover="border-color:var(--accent);transform:translateY(-3px);">
+          <b style="display:block;font-size:17px;">電力 <span style="font-size:12px;color:var(--accent);font-weight:900;">W(ワット)</span></b>
+          <p style="font-size:13px;margin-top:6px;color:var(--sub);font-weight:700;">仕事の大きさ</p>
+          <span style="display:inline-block;font-size:12px;background:var(--accent-soft);color:var(--flowLite);border-radius:8px;padding:4px 8px;margin-top:8px;font-weight:700;">💧 水車が回した力</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 05 — OHM (ブリ) ===== -->
+    <section style="position:relative;background:var(--panel);border:1px solid var(--panel-bd);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(12px);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 12px;border-radius:999px;">STAGE 05</span>
+        <h2 style="font-size:clamp(17px,2.5vw,23px);font-weight:900;">オームの法則は「ブリ」🐟</h2>
+      </div>
+      <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;justify-content:center;">
+        <div style="flex:0 0 auto;text-align:center;">
+          <svg viewBox="0 0 170 170" width="170" height="170" aria-label="オームの法則の円" style="overflow:visible;">
+            <circle cx="85" cy="85" r="78" fill="rgba(255,255,255,.04)" stroke="var(--ink)" stroke-width="4"/>
+            <line x1="9" y1="85" x2="161" y2="85" stroke="var(--ink)" stroke-width="4"/>
+            <line x1="85" y1="85" x2="85" y2="161" stroke="var(--ink)" stroke-width="4"/>
+            <g id="ohmV" style="cursor:pointer;"><circle cx="85" cy="46" r="30" fill="transparent"/><text x="85" y="58" text-anchor="middle" font-size="38" font-weight="900" fill="#ff6378">V</text></g>
+            <text x="85" y="128" text-anchor="middle" font-size="22" font-weight="900" fill="var(--sub)">×</text>
+            <g id="ohmI" style="cursor:pointer;"><circle cx="50" cy="128" r="26" fill="transparent"/><text x="50" y="138" text-anchor="middle" font-size="34" font-weight="900" fill="#36e6a4">I</text></g>
+            <g id="ohmR" style="cursor:pointer;"><circle cx="120" cy="128" r="26" fill="transparent"/><text x="120" y="138" text-anchor="middle" font-size="34" font-weight="900" fill="#ffce4a">R</text></g>
+          </svg>
+          <div style="font-size:12px;color:var(--sub);font-weight:700;margin-top:4px;">V・I・R をタップ!</div>
+        </div>
+        <div style="flex:1;min-width:240px;font-size:14px;font-weight:700;">
+          <div id="ohmReadout" style="background:linear-gradient(135deg,#101e2c,#0a1622);border:1px solid var(--panel-bd);border-radius:14px;padding:16px 18px;font-family:'Orbitron',sans-serif;font-size:clamp(18px,3.4vw,26px);font-weight:900;color:var(--flowLite);text-align:center;text-shadow:0 0 18px var(--glow1);margin-bottom:12px;">求めたい文字を<span style="font-family:inherit;">タップ</span></div>
+          <p style="color:var(--sub);">求めたい文字を指でかくすと、計算のしかたが見えてくるよ。</p>
+          <p style="margin-top:8px;color:var(--ink);">・<b style="color:#ff6378;">V = I × R</b><br>・<b style="color:#36e6a4;">I = V ÷ R</b><br>・<b style="color:#ffce4a;">R = V ÷ I</b></p>
+          <p style="margin-top:8px;color:var(--sub);">V・I・R のならびが「ブリ」に見える…かも?🐟</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 06 — QUIZ ===== -->
+    <section style="position:relative;background:var(--panel);border:1px solid var(--panel-bd);border-radius:24px;padding:24px;margin-bottom:24px;box-shadow:0 22px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(12px);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);padding:5px 12px;border-radius:999px;">STAGE 06</span>
+        <h2 style="font-size:clamp(17px,2.5vw,23px);font-weight:900;">たしかめクイズ</h2>
+      </div>
+      <p style="color:var(--sub);font-weight:700;font-size:14px;margin-bottom:14px;">全問正解めざしてがんばるのだ!</p>
+      <div id="quiz"></div>
+    </section>
+
+    <!-- ===== ENDING ===== -->
+    <section style="position:relative;text-align:center;background:linear-gradient(135deg,rgba(39,224,255,.10),rgba(86,132,255,.06));border:1px solid var(--panel-bd);border-radius:24px;padding:30px 24px;margin-bottom:20px;box-shadow:0 22px 60px rgba(0,0,0,.5);backdrop-filter:blur(12px);">
+      <div style="font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:.28em;color:var(--accent);">SUMMARY</div>
+      <h2 style="font-size:clamp(20px,3.4vw,28px);font-weight:900;margin:8px 0 14px;">きょうのまとめ</h2>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:640px;margin:0 auto 18px;">
+        <div style="flex:1;min-width:130px;background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:14px;padding:12px;"><b style="color:#36e6a4;">電流</b><div style="font-size:12px;color:var(--sub);font-weight:700;margin-top:4px;">流れる量</div></div>
+        <div style="flex:1;min-width:130px;background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:14px;padding:12px;"><b style="color:#ff6378;">電圧</b><div style="font-size:12px;color:var(--sub);font-weight:700;margin-top:4px;">押し出す力</div></div>
+        <div style="flex:1;min-width:130px;background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:14px;padding:12px;"><b style="color:#ffce4a;">抵抗</b><div style="font-size:12px;color:var(--sub);font-weight:700;margin-top:4px;">流れにくさ</div></div>
+      </div>
+      <div style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(18px,3.6vw,26px);color:var(--flowLite);text-shadow:0 0 22px var(--glow1);margin-bottom:18px;">I = V ÷ R</div>
+      <button id="opEnd" style="font-family:inherit;font-weight:900;font-size:15px;color:#06121a;cursor:pointer;border:none;border-radius:999px;padding:12px 26px;background:linear-gradient(135deg,var(--flowLite),var(--flow));box-shadow:0 0 26px var(--glow1);transition:transform .15s;" style-hover="transform:translateY(-2px) scale(1.03);">🔊 まとめをきく</button>
+    </section>
+
+    <footer style="text-align:center;font-size:11px;color:var(--sub);font-weight:700;padding:6px 0 10px;">技術・家庭科〔技術分野〕教材 ／ 音声:VOICEVOX:ずんだもん</footer>
+  </div>
+
+  <!-- ===== STICKY NARRATION DOCK ===== -->
+  <div style="position:fixed;left:0;right:0;bottom:14px;z-index:50;display:flex;justify-content:center;padding:0 12px;pointer-events:none;">
+    <div style="pointer-events:auto;display:flex;align-items:center;gap:12px;max-width:720px;width:100%;background:rgba(10,18,28,.82);border:1px solid var(--panel-bd);border-radius:20px;padding:10px 14px;box-shadow:0 18px 50px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);">
+      <div style="position:relative;flex:0 0 48px;width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#cdf08a,var(--zunda));display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 18px rgba(166,224,82,.55);animation:db-bob 3.4s ease-in-out infinite;">
+        <span style="display:inline-block;">🫛</span>
+        <span id="zWaves" style="position:absolute;right:-3px;bottom:-2px;display:none;align-items:flex-end;gap:2px;height:14px;padding:2px 3px;background:#0a121c;border-radius:6px;">
+          <i style="display:inline-block;width:3px;height:12px;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:db-wave .6s ease-in-out infinite;"></i>
+          <i style="display:inline-block;width:3px;height:12px;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:db-wave .6s ease-in-out .15s infinite;"></i>
+          <i style="display:inline-block;width:3px;height:12px;background:var(--accent);border-radius:2px;transform-origin:bottom;animation:db-wave .6s ease-in-out .3s infinite;"></i>
+        </span>
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div id="zundaTxt" style="font-weight:700;font-size:13.5px;line-height:1.45;color:var(--ink);">ようこそなのだ!スライダーを動かして、水の流れがどう変わるか見てみるのだ!</div>
+      </div>
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <button id="zundaPlay" aria-label="声をきく" style="font-family:inherit;font-weight:900;font-size:13px;border:none;cursor:pointer;background:var(--zunda);color:#0a2008;border-radius:999px;padding:8px 16px;box-shadow:0 0 14px rgba(166,224,82,.5);white-space:nowrap;transition:.15s;">🔊 声</button>
+        <label style="font-size:10.5px;font-weight:700;color:var(--sub);display:flex;align-items:center;gap:4px;cursor:pointer;white-space:nowrap;"><input type="checkbox" id="zundaAuto" style="accent-color:var(--zunda);width:14px;height:14px;cursor:pointer;"> 自動</label>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:980,&quot;height&quot;:760},&quot;waterColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#27e0ff&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;elecColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#ffc52f&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;autoNarrate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showTeacherNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  componentDidMount(){
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.SVGNS = 'http://www.w3.org/2000/svg';
+    this.mode = 'water';
+    this.V = 6; this.R = 3;
+    this.userGestured = false;
+    this.curText = '';
+    this.curKey = 'intro';
+    this.PALETTE = {
+      water: {'--flow':'#27e0ff','--flowLite':'#a6f3ff','--accent':'#34e3ff','--accent-soft':'rgba(39,224,255,.16)','--glow1':'rgba(39,224,255,.18)','--glow2':'rgba(86,132,255,.12)'},
+      elec:  {'--flow':'#ffc52f','--flowLite':'#fff0b0','--accent':'#ffd34d','--accent-soft':'rgba(255,197,47,.18)','--glow1':'rgba(255,170,40,.18)','--glow2':'rgba(255,80,40,.10)'}
+    };
+    this.VOICE = {
+      intro:{t:'ようこそなのだ!今日は「電気のきほん」を勉強するのだ。電気は目に見えないけど、水にたとえるとイメージしやすいのだ。いっしょに実験していくのだ!',f:'01_opening.mp3'},
+      sim_intro:{t:'スライダーを動かして、水の流れがどう変わるか見てみるのだ!',f:'02_sim_intro.mp3'},
+      mode_water:{t:'水のせかいなのだ!ポンプが水をくみ上げて、水車を回しているのだ。',f:'03_mode_water.mp3'},
+      mode_elec:{t:'電気のせかいに切りかえたのだ!水と同じ形なのに、流れているのは電気なのだ。電池がポンプの役目なのだ!',f:'04_mode_elec.mp3'},
+      w_def:{t:'水の量、つまり電流は、落差わる水車の重さで決まるのだ。これがオームの法則なのだ!',f:'05_water_default.mp3'},
+      w_big:{t:'すごい水量なのだ!落差が大きくて水車が軽いと、水はドバドバ流れるのだ!',f:'06_water_big.mp3'},
+      w_small:{t:'水がちょろちょろなのだ。水車が重い、つまり抵抗が大きいと、流れにくいのだ。',f:'07_water_small.mp3'},
+      w_highR:{t:'水車がずっしり重いのだ。これが抵抗の正体なのだ!',f:'08_water_highR.mp3'},
+      w_highV:{t:'ポンプ全開なのだ!高いところから流すほど、勢い、つまり電圧が強くなるのだ!',f:'09_water_highV.mp3'},
+      e_def:{t:'電流は電圧わる抵抗で計算できるのだ。アイ、イコール、ブイわるアール。オームの法則なのだ!',f:'10_elec_default.mp3'},
+      e_big:{t:'大電流なのだ!電圧が大きくて抵抗が小さいと、電気はたくさん流れるのだ!',f:'11_elec_big.mp3'},
+      e_small:{t:'電流が小さいのだ。抵抗が大きいと、電気は流れにくくなるのだ。',f:'12_elec_small.mp3'},
+      e_highR:{t:'抵抗が大きいのだ。電流をじゃまする力が強いのだ!',f:'13_elec_highR.mp3'},
+      e_highV:{t:'電圧が高いのだ!電気を押し出す力が強いから、電流も増えるのだ!',f:'14_elec_highV.mp3'},
+      drop_intro:{t:'タンクを高くしてみるのだ!高いところから落ちる水ほど、ドンッと勢いが強くなるのだ。これが電圧が高いということなのだ!',f:'15_drop_intro.mp3'},
+      drop_default:{t:'タンクを上げ下げして、水の勢いと、水車の速さをくらべてみるのだ!',f:'16_drop_default.mp3'},
+      drop_high:{t:'高いところからの水は、ド迫力なのだ!水車もビュンビュン回るのだ。落差が大きいイコール、電圧が高い、なのだ!',f:'17_drop_high.mp3'},
+      drop_low:{t:'低いところからだと、水はポタポタ。勢いが弱いのだ。これが電圧が低い状態なのだ。',f:'18_drop_low.mp3'},
+      hose_intro:{t:'スライダーで、ホースの先をつまんでみるのだ!水はどこまで飛ぶかな?',f:'19_hose_intro.mp3'},
+      hose_mid:{t:'つまむほど、勢い、つまり電圧は強く。量、つまり電流は少なくなっていくのだ。気づいたかな?',f:'20_hose_mid.mp3'},
+      hose_high:{t:'ギュッとつまむと、水がビューンと遠くまで飛ぶのだ!でも、出てくる水の量は少ないのだ。抵抗が上がると、そこの勢いは上がるけど、流れる量は減る、なのだ!',f:'21_hose_high.mp3'},
+      hose_low:{t:'つまんでいないと、水はたっぷり出るけど、近くにドボドボ落ちるだけなのだ。',f:'22_hose_low.mp3'},
+      word_denryu:{t:'電流は、電気の流れる量なのだ。単位はアンペア。水にたとえると、流れる水の量なのだ。',f:'23_word_denryu.mp3'},
+      word_denatsu:{t:'電圧は、電気を押し出す力なのだ。単位はボルト。水にたとえると、水の高さや水圧なのだ。',f:'24_word_denatsu.mp3'},
+      word_teikou:{t:'抵抗は、電気の流れにくさなのだ。単位はオーム。水にたとえると、細い管や水車なのだ。',f:'25_word_teikou.mp3'},
+      word_denryoku:{t:'電力は、仕事の大きさなのだ。単位はワット。水にたとえると、水車が回した力なのだ。',f:'26_word_denryoku.mp3'},
+      buri:{t:'オームの法則は、ブイ、イコール、アイかけるアール。求めたい文字を指でかくすと、計算のしかたが見えてくるのだ。ブイ、アイ、アールのならびが、ブリに見えるのだ!',f:'27_buri.mp3'},
+      quiz_intro:{t:'さいごは、たしかめクイズなのだ!全問正解めざしてがんばるのだ!',f:'28_quiz_intro.mp3'},
+      q1_ok:{t:'せいかい!アイ、イコール、ろくわるさんで、にアンペアなのだ!',f:'29_q1_ok.mp3'},
+      q1_ng:{t:'おしいのだ。電流は、電圧わる抵抗。ろくわるさんを計算してみるのだ。',f:'30_q1_ng.mp3'},
+      q2_ok:{t:'せいかい!水車が重いほど、水が流れにくくなるのと同じなのだ!',f:'31_q2_ok.mp3'},
+      q2_ng:{t:'もう一度、シミュレーターで抵抗を上げてみるのだ!',f:'32_q2_ng.mp3'},
+      q3_ok:{t:'せいかい!高いところの水ほど勢いよく流れる、イコール、電圧が高いのだ!',f:'33_q3_ok.mp3'},
+      q3_ng:{t:'ヒントなのだ。電圧は、電気を押し出す力なのだ。',f:'34_q3_ng.mp3'},
+      ending:{t:'きょうのまとめなのだ!電流は流れる量、電圧は押し出す力、抵抗は流れにくさ。そして、電流は電圧わる抵抗で求められるのだ。おつかれさまなのだ!',f:'35_ending.mp3'}
+    };
+    this.applyTheme();
+    this.setupNarration();
+    this.setupSim();
+    this.setupDrop();
+    this.setupHose();
+    this.setupGlossary();
+    this.setupOhm();
+    this.setupQuiz();
+    this.setupButtons();
+    this.initFills();
+    this.setLine('intro');
+  }
+  componentDidUpdate(){ this.applyTheme(); }
+
+  $(id){ return document.getElementById(id); }
+  fillSlider(s){ if(!s)return; const mn=+s.min,mx=+s.max,v=+s.value; const pct=mx>mn?((v-mn)/(mx-mn))*100:50; s.style.setProperty('--fill',pct+'%'); }
+  initFills(){ ['vSlider','rSlider','dSlider','hSlider'].forEach(id=>{const s=this.$(id); if(s){ this.fillSlider(s); s.addEventListener('input',()=>this.fillSlider(s)); }}); }
+  fmt(n){ return (Math.round(n*100)/100).toFixed(Math.abs(n*10%10)<0.01?1:2).replace(/0$/,'0'); }
+  I(){ return this.V / this.R; }
+
+  applyTheme(){
+    const root = this.$('denkiRoot'); if(!root) return;
+    const base = this.PALETTE[this.mode];
+    const set = Object.assign({}, base);
+    const wc = this.props && this.props.waterColor;
+    const ec = this.props && this.props.elecColor;
+    if(this.mode==='water' && wc){ set['--flow']=wc; set['--accent']=wc; }
+    if(this.mode==='elec' && ec){ set['--flow']=ec; set['--accent']=ec; }
+    for(const k in set) root.style.setProperty(k, set[k]);
+    const tn = this.$('teachNote');
+    if(tn) tn.style.display = (this.props && this.props.showTeacherNotes===false) ? 'none' : '';
+  }
+
+  /* ---------- NARRATION ---------- */
+  setupNarration(){
+    this.synth = window.speechSynthesis || null;
+    this.jaVoice = null;
+    this.audioBase = 'audio/';
+    this.audioAvail = {};
+    this.curAudio = null;
+    const pick = ()=>{
+      if(!this.synth) return;
+      const vs = this.synth.getVoices();
+      this.jaVoice = vs.find(v=>/ja[-_]?JP/i.test(v.lang)) || vs.find(v=>/^ja/i.test(v.lang)) || null;
+    };
+    pick();
+    if(this.synth && this.synth.onvoiceschanged===null){ this.synth.onvoiceschanged = pick; }
+    this.playBtn = this.$('zundaPlay');
+    this.autoBox = this.$('zundaAuto');
+    if(this.props && this.props.autoNarrate===false){ this.autoBox.checked=false; } else { this.autoBox.checked=true; }
+    this.playBtn.addEventListener('click', ()=>{ this.userGestured=true; this.playNow(this.curKey); });
+  }
+  setSpeaking(on){
+    const w = this.$('zWaves'); if(w) w.style.display = on?'flex':'none';
+    if(this.playBtn){ this.playBtn.textContent = on?'⏸ 中':'🔊 声'; }
+  }
+  speakText(text){
+    if(!text) return;
+    // future: if an MP3 exists for this line, prefer it (drop files into audio/)
+    if(!this.synth){ return; }
+    try{ this.synth.cancel(); }catch(e){}
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang='ja-JP'; u.pitch=1.45; u.rate=1.06; u.volume=1;
+    if(this.jaVoice) u.voice=this.jaVoice;
+    u.onstart=()=>this.setSpeaking(true);
+    u.onend=()=>this.setSpeaking(false);
+    u.onerror=()=>this.setSpeaking(false);
+    this.synth.speak(u);
+  }
+  showText(key){ const v=this.VOICE[key]; if(!v) return false; const changed=v.t!==this.curText; this.curKey=key; if(changed){ const el=this.$('zundaTxt'); if(el) el.textContent=v.t; this.curText=v.t; } return changed; }
+  setLine(key){ const changed=this.showText(key); if(changed && this.autoBox && this.autoBox.checked && this.userGestured){ clearTimeout(this.narrTimer); this.narrTimer=setTimeout(()=>this.playLine(key), 480); } }
+  playNow(key){ clearTimeout(this.narrTimer); this.showText(key); this.playLine(key); }
+  playLine(key){
+    const v=this.VOICE[key]; if(!v) return;
+    try{ this.synth && this.synth.cancel(); }catch(e){}
+    if(this.curAudio){ try{ this.curAudio.pause(); }catch(e){} this.curAudio=null; }
+    this.setSpeaking(false);
+    if(v.f && this.audioAvail[key]!==false){
+      const a=new Audio(this.audioBase+v.f); this.curAudio=a;
+      a.addEventListener('playing',()=>{ if(this.curAudio!==a) return; this.audioAvail[key]=true; this.setSpeaking(true); });
+      a.addEventListener('ended',()=>{ if(this.curAudio===a){ this.setSpeaking(false); this.curAudio=null; } });
+      a.addEventListener('error',()=>{ if(this.curAudio!==a) return; this.audioAvail[key]=false; this.curAudio=null; this.speakText(v.t); });
+      const pr=a.play(); if(pr&&pr.catch) pr.catch(err=>{ if(this.curAudio!==a) return; if(err&&err.name==='AbortError') return; this.speakText(v.t); });
+    } else { this.speakText(v.t); }
+  }
+
+  /* ---------- SIMULATOR ---------- */
+  setupSim(){
+    const path=this.$('loopPath'); const LEN=path.getTotalLength();
+    const N=26, g=this.$('particles'); this.simParts=[];
+    for(let i=0;i<N;i++){
+      const c=document.createElementNS(this.SVGNS,'circle');
+      c.setAttribute('r','6'); c.setAttribute('fill','var(--flow)');
+      g.appendChild(c); this.simParts.push({el:c, off:LEN*i/N});
+    }
+    this.$('vSlider').addEventListener('input',e=>{ this.userGestured=true; this.V=+e.target.value; this.simUpdate(); });
+    this.$('rSlider').addEventListener('input',e=>{ this.userGestured=true; this.R=+e.target.value; this.simUpdate(); });
+    let last=performance.now(), ang=0;
+    const tick=now=>{
+      const dt=Math.min((now-last)/1000,.05); last=now;
+      const speed=15+this.I()*22;
+      for(const p of this.simParts){
+        p.off=(p.off+speed*dt)%LEN;
+        const pt=path.getPointAtLength(p.off);
+        p.el.setAttribute('cx',pt.x); p.el.setAttribute('cy',pt.y);
+      }
+      if(this.mode==='water'){
+        ang+=this.I()*60*dt;
+        this.$('wheel').setAttribute('transform',`translate(600,200) rotate(${ang})`);
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    this.simUpdate(true);
+  }
+  simUpdate(skip){
+    this.$('vVal').textContent=this.V; this.$('rVal').textContent=this.R;
+    this.$('calc').textContent=`${this.V} ÷ ${this.R}`;
+    this.$('iVal').textContent=this.fmt(this.I());
+    this.$('pVal').textContent=this.fmt(this.V*this.I());
+    const h=12+(this.V/12)*56;
+    this.$('vGauge').setAttribute('height',h); this.$('vGauge').setAttribute('y',238-h);
+    this.$('vGaugeE').setAttribute('height',h-4); this.$('vGaugeE').setAttribute('y',240-h);
+    const p=Math.min(1,(this.V*this.I())/100);
+    this.$('glow').setAttribute('opacity',0.15+p*0.8);
+    this.$('glow').setAttribute('r',44+p*34);
+    const fil=this.$('filament'); if(fil) fil.setAttribute('stroke', p>0.3?'#fff3b0':'#ff9c2a');
+    const r=4+Math.min(6,this.I()*0.9);
+    this.simParts.forEach(pt=>pt.el.setAttribute('r',r));
+    this.$('flowAmount').textContent = this.mode==='water'
+      ? `流れる水の量 = ${this.fmt(this.I())}(電流 ${this.fmt(this.I())} A)`
+      : `電流 = ${this.fmt(this.I())} A`;
+    if(!skip) this.simNarrate();
+  }
+  simNarrate(){
+    const i=this.I(); let key;
+    if(i>=8) key=this.mode==='water'?'w_big':'e_big';
+    else if(i<=0.6) key=this.mode==='water'?'w_small':'e_small';
+    else if(this.R>=9) key=this.mode==='water'?'w_highR':'e_highR';
+    else if(this.V>=10) key=this.mode==='water'?'w_highV':'e_highV';
+    else key=this.mode==='water'?'w_def':'e_def';
+    this.setLine(key);
+  }
+  setMode(m){
+    this.mode=m; this.applyTheme();
+    const water=m==='water';
+    const bw=this.$('btnWater'), be=this.$('btnElec');
+    bw.style.background=water?'linear-gradient(135deg,#1fd4f0,#1aa9d6)':'transparent';
+    bw.style.color=water?'#06121a':'var(--sub)';
+    bw.style.boxShadow=water?'0 0 22px var(--glow1)':'none';
+    be.style.background=water?'transparent':'linear-gradient(135deg,#ffb020,#ff8c1a)';
+    be.style.color=water?'var(--sub)':'#2a1500';
+    be.style.boxShadow=water?'none':'0 0 22px var(--glow1)';
+    this.$('srcWater').style.display=water?'':'none';
+    this.$('srcElec').style.display=water?'none':'';
+    this.$('loadWater').style.display=water?'':'none';
+    this.$('loadElec').style.display=water?'none':'';
+    this.$('simTitle').textContent=water?'水路シミュレーター':'電気回路シミュレーター';
+    this.$('vName').textContent=water?'⛰️ 落差(電圧)':'🔋 電圧';
+    this.$('rName').textContent=water?'🌀 水車の重さ(抵抗)':'🚧 抵抗';
+    this.$('flowLabel').textContent=water?'→ 水の流れ(=電流)':'→ 電流の流れ';
+    this.curText='';
+    this.setLine(water?'mode_water':'mode_elec');
+    this.simUpdate(true);
+  }
+
+  /* ---------- DROP ---------- */
+  setupDrop(){
+    let h=5; const groundY=330, dropX=465;
+    const tankY=()=>196-h*15;
+    const layout=()=>{
+      this.$('dTank').setAttribute('transform',`translate(0, ${tankY()})`);
+      const towerTop=tankY()+58;
+      this.$('dTower').setAttribute('y',towerTop);
+      this.$('dTower').setAttribute('height',groundY-towerTop);
+      this.$('dArrow').setAttribute('y1',tankY()+50);
+      this.$('dArrowTop').setAttribute('d',`M 300 ${tankY()+50} l -7 12 h 14 z`);
+      const mid=(tankY()+50+groundY)/2;
+      this.$('dArrowLabel').setAttribute('y',mid-6);
+      this.$('dArrowVal').setAttribute('y',mid+16);
+      this.$('dArrowVal').textContent=`高さ ${h}m`;
+      this.$('dHVal').textContent=h;
+      this.$('dPowerBar').style.width=(h*10)+'%';
+      this.$('dPowerTxt').textContent='★'.repeat(Math.ceil(h/2));
+      this.$('dNote').textContent = h>=8?'高いところからの水はド迫力なのだ!水車もビュンビュン回るのだ。「落差が大きい=電圧が高い」なのだ!':h<=2?'低いところからだと、水はポタポタ…勢いが弱いのだ。これが「電圧が低い」状態なのだ。':'タンクを上げ下げして、水の勢いと水車の速さをくらべてみるのだ!';
+      this.setLine(h>=8?'drop_high':h<=2?'drop_low':'drop_default');
+    };
+    const drops=[], spl=[]; const dg=this.$('dDrops'), sg=this.$('dSplash');
+    for(let i=0;i<28;i++){const c=document.createElementNS(this.SVGNS,'circle');c.setAttribute('fill','var(--flow)');c.setAttribute('r','5');c.style.display='none';dg.appendChild(c);drops.push({el:c,on:false,x:0,y:0,vy:0});}
+    for(let i=0;i<24;i++){const c=document.createElementNS(this.SVGNS,'circle');c.setAttribute('fill','var(--flowLite)');c.setAttribute('r','3.5');c.style.display='none';sg.appendChild(c);spl.push({el:c,on:false,x:0,y:0,vx:0,vy:0,life:0});}
+    const spawnDrop=()=>{const d=drops.find(d=>!d.on);if(!d)return;d.on=true;d.x=dropX+(Math.random()*10-5);d.y=tankY()+58;d.vy=40;d.el.style.display='';};
+    const spawnSplash=(x,y,pw)=>{for(let i=0;i<3;i++){const s=spl.find(s=>!s.on);if(!s)return;s.on=true;s.x=x;s.y=y;s.life=.55;s.vx=(Math.random()*2-1)*(40+pw*120);s.vy=-(60+Math.random()*pw*220);s.el.style.display='';}};
+    let last=performance.now(),acc=0,ang=0;
+    const tick=now=>{
+      const dt=Math.min((now-last)/1000,.05);last=now;
+      if(true){
+        acc+=dt; const interval=0.16-h*0.008;
+        while(acc>interval){acc-=interval;spawnDrop();}
+        const G=750;
+        for(const d of drops){if(!d.on)continue;d.vy+=G*dt;d.y+=d.vy*dt;if(d.y>=254){d.on=false;d.el.style.display='none';spawnSplash(d.x,252,h/10);}else{d.el.setAttribute('cx',d.x);d.el.setAttribute('cy',d.y);}}
+        for(const s of spl){if(!s.on)continue;s.life-=dt;if(s.life<=0||s.y>groundY){s.on=false;s.el.style.display='none';continue;}s.vy+=700*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.el.setAttribute('cx',s.x);s.el.setAttribute('cy',s.y);s.el.setAttribute('opacity',s.life/0.55);}
+        ang+=(20+h*34)*dt; this.$('dWheel').setAttribute('transform',`rotate(${ang})`);
+      }
+      requestAnimationFrame(tick);
+    };
+    this.$('dSlider').addEventListener('input',e=>{ this.userGestured=true; h=+e.target.value; layout(); });
+    layout(); requestAnimationFrame(tick);
+  }
+
+  /* ---------- HOSE ---------- */
+  setupHose(){
+    let p=0; const nozX=268,nozY=201,groundY=330;
+    const layout=()=>{
+      this.$('hPVal').textContent=p;
+      this.$('fingerTop').setAttribute('cy',150+p*2.6);
+      this.$('fingerBtm').setAttribute('cy',252-p*2.6);
+      this.$('nozzleTop').setAttribute('height',6+p*0.9);
+      this.$('nozzleBtm').setAttribute('y',210-p*0.9);
+      this.$('nozzleBtm').setAttribute('height',6+p*0.9);
+      this.$('hIkioiBar').style.width=(18+p*8.2)+'%';
+      this.$('hRyouBar').style.width=(100-p*8.2)+'%';
+      this.$('hNote').textContent = p>=8?'ギュッとつまむと水がビューン!と遠くまで飛ぶのだ!でも出てくる水の量は少ないのだ。「抵抗が上がると、そこの勢い(電圧)は上がるけど、流れる量(電流)は減る」なのだ!':p<=1?'つまんでいないと、水はたっぷり出るけど、近くにドボドボ落ちるだけなのだ。':'つまむほど…勢い(=電圧)は強く、量(=電流)は少なくなっていくのだ。気づいたかな?';
+      this.setLine(p>=8?'hose_high':p<=1?'hose_low':'hose_mid');
+    };
+    const drops=[],spl=[];const dg=this.$('hDrops'),sg=this.$('hSplash');
+    for(let i=0;i<34;i++){const c=document.createElementNS(this.SVGNS,'circle');c.setAttribute('fill','var(--flow)');c.style.display='none';dg.appendChild(c);drops.push({el:c,on:false,x:0,y:0,vx:0,vy:0});}
+    for(let i=0;i<20;i++){const c=document.createElementNS(this.SVGNS,'circle');c.setAttribute('fill','var(--flowLite)');c.setAttribute('r','3');c.style.display='none';sg.appendChild(c);spl.push({el:c,on:false,x:0,y:0,vx:0,vy:0,life:0});}
+    const spawn=()=>{const d=drops.find(d=>!d.on);if(!d)return;d.on=true;const jit=10-p*0.7;d.x=nozX;d.y=nozY+(Math.random()*jit-jit/2);d.vx=120+p*56+Math.random()*16;d.vy=-(15+p*24)+(Math.random()*jit-jit/2);d.el.setAttribute('r',Math.max(2.0,7-p*0.45));d.el.style.display='';};
+    const splash=x=>{for(let i=0;i<2;i++){const s=spl.find(s=>!s.on);if(!s)return;s.on=true;s.x=x;s.y=groundY-4;s.life=.4;s.vx=(Math.random()*2-1)*60;s.vy=-(50+Math.random()*120);s.el.style.display='';}};
+    let last=performance.now(),acc=0;
+    const tick=now=>{
+      const dt=Math.min((now-last)/1000,.05);last=now;
+      if(true){
+        acc+=dt; const interval=1/(28-p*1.0);
+        while(acc>interval){acc-=interval;spawn();}
+        const G=620;
+        for(const d of drops){if(!d.on)continue;d.vy+=G*dt;d.x+=d.vx*dt;d.y+=d.vy*dt;if(d.y>=groundY-4){d.on=false;d.el.style.display='none';splash(d.x);}else if(d.x>730){d.on=false;d.el.style.display='none';}else{d.el.setAttribute('cx',d.x);d.el.setAttribute('cy',d.y);}}
+        for(const s of spl){if(!s.on)continue;s.life-=dt;if(s.life<=0){s.on=false;s.el.style.display='none';continue;}s.vy+=700*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.el.setAttribute('cx',s.x);s.el.setAttribute('cy',s.y);s.el.setAttribute('opacity',s.life/0.4);}
+      }
+      requestAnimationFrame(tick);
+    };
+    this.$('hSlider').addEventListener('input',e=>{ this.userGestured=true; p=+e.target.value; layout(); });
+    layout(); requestAnimationFrame(tick);
+  }
+
+  /* ---------- GLOSSARY ---------- */
+  setupGlossary(){
+    document.querySelectorAll('#denkiRoot .termCard').forEach(btn=>{
+      btn.addEventListener('click',()=>{ this.userGestured=true; const k=btn.getAttribute('data-voice'); this.playNow(k); });
+    });
+  }
+
+  /* ---------- OHM ---------- */
+  setupOhm(){
+    const ro=this.$('ohmReadout');
+    const show=(html)=>{ ro.innerHTML=html; this.userGestured=true; this.playNow('buri'); };
+    const V=this.$('ohmV'), I=this.$('ohmI'), R=this.$('ohmR');
+    if(V) V.addEventListener('click',()=>show('V = I × R'));
+    if(I) I.addEventListener('click',()=>show('I = V ÷ R'));
+    if(R) R.addEventListener('click',()=>show('R = V ÷ I'));
+  }
+
+  /* ---------- QUIZ ---------- */
+  setupQuiz(){
+    const QUIZ=[
+      {q:'Q1. 6Vの電池に3Ωの抵抗をつなぐと、電流は何A?',opts:['1A','2A','18A'],ans:1,ok:'せいかい!アイ、イコール、ろくわるさんで、にアンペアなのだ!',ng:'おしいのだ。電流は、電圧わる抵抗。ろくわるさんを計算してみるのだ。',okTxt:'⭕ せいかい!I = 6 ÷ 3 = 2A なのだ!',ngTxt:'❌ おしいのだ…。I = V ÷ R = 6 ÷ 3 を計算してみるのだ。',okKey:'q1_ok',ngKey:'q1_ng'},
+      {q:'Q2. 抵抗を大きくすると、電流はどうなる?',opts:['増える','減る','変わらない'],ans:1,ok:'せいかい!水車が重いほど、水が流れにくくなるのと同じなのだ!',ng:'もう一度、シミュレーターで抵抗を上げてみるのだ!',okTxt:'⭕ せいかい!水車が重いほど水が流れにくくなるのと同じなのだ!',ngTxt:'❌ もう一度シミュレーターで抵抗を上げてみるのだ!',okKey:'q2_ok',ngKey:'q2_ng'},
+      {q:'Q3. 水にたとえたとき、「電圧」にあたるものは?',opts:['水の量','水の高さ・水圧','水車'],ans:1,ok:'せいかい!高いところの水ほど勢いよく流れる、イコール、電圧が高いのだ!',ng:'ヒントなのだ。電圧は、電気を押し出す力なのだ。',okTxt:'⭕ せいかい!高いところの水ほど勢いよく流れる=電圧が高いのだ!',ngTxt:'❌ ヒント:電圧は電気を「押し出す力」なのだ。',okKey:'q3_ok',ngKey:'q3_ng'}
+    ];
+    const wrap=this.$('quiz');
+    QUIZ.forEach(item=>{
+      const div=document.createElement('div'); div.style.cssText='margin-bottom:18px;';
+      const qt=document.createElement('div'); qt.style.cssText='font-weight:900;font-size:15px;margin-bottom:10px;color:var(--ink);'; qt.textContent=item.q;
+      const opts=document.createElement('div'); opts.style.cssText='display:flex;flex-wrap:wrap;gap:10px;';
+      const fb=document.createElement('div'); fb.style.cssText='font-size:13px;font-weight:700;margin-top:8px;min-height:1.2em;';
+      item.opts.forEach((o,oi)=>{
+        const b=document.createElement('button'); b.textContent=o;
+        b.style.cssText='font-family:inherit;font-weight:700;font-size:14px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.05);color:var(--ink);border-radius:999px;padding:9px 18px;cursor:pointer;transition:.18s;';
+        b.addEventListener('mouseenter',()=>{ if(!b.disabled) b.style.borderColor='var(--accent)'; });
+        b.addEventListener('mouseleave',()=>{ if(!b.disabled) b.style.borderColor='var(--panel-bd)'; });
+        b.addEventListener('click',()=>{
+          this.userGestured=true;
+          if(oi===item.ans){
+            b.style.background='var(--good)'; b.style.color='#062a1c'; b.style.borderColor='var(--good)'; b.style.boxShadow='0 0 16px rgba(54,230,164,.5)';
+            fb.textContent=item.okTxt; fb.style.color='var(--good)';
+            opts.querySelectorAll('button').forEach(x=>x.disabled=true);
+            this.playNow(item.okKey);
+          }else{
+            b.style.background='var(--bad)'; b.style.color='#2a0610'; b.style.borderColor='var(--bad)';
+            fb.textContent=item.ngTxt; fb.style.color='var(--bad)';
+            this.playNow(item.ngKey);
+          }
+        });
+        opts.appendChild(b);
+      });
+      div.append(qt,opts,fb); wrap.appendChild(div);
+    });
+  }
+
+  /* ---------- BUTTONS ---------- */
+  setupButtons(){
+    this.$('btnWater').addEventListener('click',()=>{ this.userGestured=true; this.setMode('water'); });
+    this.$('btnElec').addEventListener('click',()=>{ this.userGestured=true; this.setMode('elec'); });
+    this.$('opStart').addEventListener('click',()=>{ this.userGestured=true; this.playNow('intro'); });
+    this.$('opEnd').addEventListener('click',()=>{ this.userGestured=true; this.playNow('ending'); });
+  }
+}
+</script>
+</body>
+</html>
