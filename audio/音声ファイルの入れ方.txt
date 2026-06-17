@@ -1,0 +1,55 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ずんだもん音声(VOICEVOX)の入れ方
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+このフォルダ(audio/)に、下記の名前どおりのMP3を入れるだけで、
+教材が自動でそのMP3を再生します。
+（まだ無いファイルは、ブラウザの読み上げ音声で自動代用されます）
+
+■ 作り方
+  1. VOICEVOX(または「ずんだナレーションメーカー」)を開く
+  2. zundamon_daihon_denki_2.md のセリフを1行ずつコピペして生成
+  3. できたMP3を、下の名前で このフォルダ(audio/)に保存
+  4. 教材を開き直すと、ずんだもんの声で再生されます
+
+■ ファイル名一覧（35本）
+  01_opening.mp3         … はじめのあいさつ（START ボタン）
+  02_sim_intro.mp3      … 操作ガイド
+  03_mode_water.mp3     … 水のせかい
+  04_mode_elec.mp3      … 電気のせかい
+  05_water_default.mp3  … 水：標準
+  06_water_big.mp3      … 水：大水量
+  07_water_small.mp3    … 水：少量
+  08_water_highR.mp3    … 水：抵抗大
+  09_water_highV.mp3    … 水：電圧高
+  10_elec_default.mp3   … 電気：標準
+  11_elec_big.mp3       … 電気：大電流
+  12_elec_small.mp3     … 電気：小電流
+  13_elec_highR.mp3     … 電気：抵抗大
+  14_elec_highV.mp3     … 電気：電圧高
+  15_drop_intro.mp3     … 落差じっけん：導入
+  16_drop_default.mp3   … 落差じっけん：標準
+  17_drop_high.mp3      … 落差じっけん：高い
+  18_drop_low.mp3       … 落差じっけん：低い
+  19_hose_intro.mp3     … ホースじっけん：導入
+  20_hose_mid.mp3       … ホースじっけん：中くらい
+  21_hose_high.mp3      … ホースじっけん：強くつまむ
+  22_hose_low.mp3       … ホースじっけん：つままない
+  23_word_denryu.mp3    … 用語：電流
+  24_word_denatsu.mp3   … 用語：電圧
+  25_word_teikou.mp3    … 用語：抵抗
+  26_word_denryoku.mp3  … 用語：電力
+  27_buri.mp3           … オームの法則「ブリ」
+  28_quiz_intro.mp3     … クイズ導入
+  29_q1_ok.mp3          … Q1 正解
+  30_q1_ng.mp3          … Q1 不正解
+  31_q2_ok.mp3          … Q2 正解
+  32_q2_ng.mp3          … Q2 不正解
+  33_q3_ok.mp3          … Q3 正解
+  34_q3_ng.mp3          … Q3 不正解
+  35_ending.mp3         … まとめ
+
+■ メモ
+  ・ファイル名は半角・小文字で、上記と完全一致させてください
+  ・クレジット「VOICEVOX:ずんだもん」は教材フッターに記載済みです
+  ・このガイド(.txt)は消してかまいません

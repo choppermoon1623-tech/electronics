@@ -15,12 +15,7 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:#05090f;}
   body{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","BIZ UDGothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
-  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;}
-  input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent,#27e0ff) var(--fill,50%),rgba(255,255,255,.14) var(--fill,50%));box-shadow:0 0 8px var(--glow1,rgba(39,224,255,.18)) inset;}
-  input[type=range]::-moz-range-track{height:8px;border-radius:999px;background:rgba(255,255,255,.14);}
-  input[type=range]::-moz-range-progress{height:8px;border-radius:999px;background:var(--accent,#27e0ff);}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;background:var(--accent,#27e0ff);border:3px solid #0a121c;box-shadow:0 0 14px var(--accent,#27e0ff),0 4px 10px rgba(0,0,0,.5);cursor:pointer;}
-  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent,#27e0ff);border:3px solid #0a121c;box-shadow:0 0 14px var(--accent,#27e0ff);cursor:pointer;}
+  input[type=range]{width:100%;height:30px;cursor:pointer;accent-color:var(--accent,#27e0ff);}
   @keyframes db-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
   @keyframes db-glow{0%,100%{opacity:.45}50%{opacity:1}}
   @keyframes db-dash{to{stroke-dashoffset:-260}}
@@ -153,13 +148,21 @@
           <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;">
             <span id="vName">⛰️ 落差(電圧)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="vVal">6</span> <small style="color:var(--sub);font-weight:700;">V</small></span>
           </label>
-          <input type="range" id="vSlider" min="1" max="12" step="1" value="6" aria-label="電圧" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+          <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+            <button type="button" class="stepBtn" data-target="vSlider" data-dir="-1" aria-label="電圧を下げる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">−</button>
+            <input type="range" id="vSlider" min="1" max="12" step="1" value="6" aria-label="電圧" style="flex:1;height:30px;cursor:pointer;touch-action:none;">
+            <button type="button" class="stepBtn" data-target="vSlider" data-dir="1" aria-label="電圧を上げる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">＋</button>
+          </div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
           <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;">
             <span id="rName">🌀 水車の重さ(抵抗)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="rVal">3</span> <small style="color:var(--sub);font-weight:700;">Ω</small></span>
           </label>
-          <input type="range" id="rSlider" min="1" max="12" step="1" value="3" aria-label="抵抗" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+          <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+            <button type="button" class="stepBtn" data-target="rSlider" data-dir="-1" aria-label="抵抗を下げる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">−</button>
+            <input type="range" id="rSlider" min="1" max="12" step="1" value="3" aria-label="抵抗" style="flex:1;height:30px;cursor:pointer;touch-action:none;">
+            <button type="button" class="stepBtn" data-target="rSlider" data-dir="1" aria-label="抵抗を上げる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">＋</button>
+          </div>
         </div>
       </div>
 
@@ -217,7 +220,11 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:12px;">
         <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
           <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;"><span>⛰️ タンクの高さ(落差)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="dHVal">5</span> <small style="color:var(--sub);font-weight:700;">m</small></span></label>
-          <input type="range" id="dSlider" min="1" max="10" step="1" value="5" aria-label="タンクの高さ" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+          <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+            <button type="button" class="stepBtn" data-target="dSlider" data-dir="-1" aria-label="高さを下げる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">−</button>
+            <input type="range" id="dSlider" min="1" max="10" step="1" value="5" aria-label="タンクの高さ" style="flex:1;height:30px;cursor:pointer;touch-action:none;">
+            <button type="button" class="stepBtn" data-target="dSlider" data-dir="1" aria-label="高さを上げる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">＋</button>
+          </div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;">
           <div style="font-size:13px;font-weight:900;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><span>💨 水の勢い <small style="color:var(--sub);font-weight:700;">=電圧のイメージ</small></span><span id="dPowerTxt" style="color:var(--accent);"></span></div>
@@ -258,7 +265,11 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:12px;">
         <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;">
           <label style="font-weight:900;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;"><span>🤏 つまみ具合(=抵抗)</span><span><span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent);" id="hPVal">0</span></span></label>
-          <input type="range" id="hSlider" min="0" max="10" step="1" value="0" aria-label="つまみ具合" style="width:100%;height:26px;margin-top:8px;cursor:pointer;">
+          <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+            <button type="button" class="stepBtn" data-target="hSlider" data-dir="-1" aria-label="ゆるめる" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">−</button>
+            <input type="range" id="hSlider" min="0" max="10" step="1" value="0" aria-label="つまみ具合" style="flex:1;height:30px;cursor:pointer;touch-action:none;">
+            <button type="button" class="stepBtn" data-target="hSlider" data-dir="1" aria-label="つまむ" style="flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--panel-bd);background:rgba(255,255,255,.06);color:var(--ink);font-size:24px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation;">＋</button>
+          </div>
         </div>
         <div style="background:rgba(255,255,255,.04);border:1px solid var(--panel-bd);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
           <div>
@@ -441,14 +452,13 @@ class Component extends DCLogic {
     this.setupOhm();
     this.setupQuiz();
     this.setupButtons();
-    this.initFills();
+    this.setupSteppers();
     this.setLine('intro');
   }
   componentDidUpdate(){ this.applyTheme(); }
 
   $(id){ return document.getElementById(id); }
-  fillSlider(s){ if(!s)return; const mn=+s.min,mx=+s.max,v=+s.value; const pct=mx>mn?((v-mn)/(mx-mn))*100:50; s.style.setProperty('--fill',pct+'%'); }
-  initFills(){ ['vSlider','rSlider','dSlider','hSlider'].forEach(id=>{const s=this.$(id); if(s){ this.fillSlider(s); s.addEventListener('input',()=>this.fillSlider(s)); }}); }
+
   fmt(n){ return (Math.round(n*100)/100).toFixed(Math.abs(n*10%10)<0.01?1:2).replace(/0$/,'0'); }
   I(){ return this.V / this.R; }
 
@@ -728,6 +738,23 @@ class Component extends DCLogic {
         opts.appendChild(b);
       });
       div.append(qt,opts,fb); wrap.appendChild(div);
+    });
+  }
+
+  /* ---------- STEPPERS ---------- */
+  setupSteppers(){
+    document.querySelectorAll('#denkiRoot .stepBtn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        this.userGestured=true;
+        const s=this.$(b.getAttribute('data-target')); if(!s) return;
+        const dir=+b.getAttribute('data-dir');
+        const step=(+s.step||1), mn=+s.min, mx=+s.max;
+        let v=(+s.value)+dir*step;
+        v=Math.max(mn,Math.min(mx,v));
+        if(v===+s.value) return;
+        s.value=v;
+        s.dispatchEvent(new Event('input',{bubbles:true}));
+      });
     });
   }
 
